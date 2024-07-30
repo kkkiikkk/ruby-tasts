@@ -12,30 +12,24 @@ end
 
 def underscore(str)
   whiteSpaceIndex = str.index(/\s/)
-  if whiteSpaceIndex != nil
-    if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex])
-      str[whiteSpaceIndex] = "_"
-    else
-      str.slice!(whiteSpaceIndex)
-    end
-    underscore(str)
+  returnstr.downcase! if whiteSpaceIndex != nil
+  if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
+    str[whiteSpaceIndex] = "_"
   else
-    str.downcase!
+    str.slice!(whiteSpaceIndex)
   end
+    underscore(str)
 end
 
 def css(str)
   whiteSpaceIndex = str.index(/\s/)
-  if whiteSpaceIndex != nil
-    if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
-      str[whiteSpaceIndex] = "-"
-    else
-      str.slice!(whiteSpaceIndex)
-    end
-    css(str)
+  return str.downcase! if whiteSpaceIndex != nil
+  if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
+    str[whiteSpaceIndex] = "-"
   else
-    str.downcase!
+    str.slice!(whiteSpaceIndex)
   end
+  css(str)
 end
 
 str = "  I love           ruby"
