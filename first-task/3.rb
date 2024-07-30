@@ -9,5 +9,5 @@ raws = gets.chomp.to_i
   arr = [];
   arr.fill(0, 0...columns);
   arr[i] = 1 if i < columns
-  p arr.to_a
+  p arr
 end
