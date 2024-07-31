@@ -2,9 +2,9 @@ def find_nested_hash_value(obj,key)
   if obj.respond_to?(:key?) && obj.key?(key)
     obj[key]
   elsif obj.respond_to?(:each)
-    findingObj = nil
-    obj.find{ |a| findingObj=find_nested_hash_value(a.last, key) }
-    findingObj
+    finding_obj = nil
+    obj.find{ |a| finding_obj=find_nested_hash_value(a.last, key) }
+    finding_obj
   end
 end
 

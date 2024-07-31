@@ -1,5 +1,5 @@
-def get_values_from_array(incomingValue, type, result = [])
-  incomingValue.each do |value|
+def get_values_from_array(incoming_value, type, result = [])
+  incoming_value.each do |value|
     get_values_from_array(value, type, result) if (value.is_a? Array)
     result.push(value) if (value.is_a? type)
   end
@@ -10,8 +10,8 @@ def get_all(arr, type)
   result = []
   arr.each do |value|
     if (value.is_a? Array) 
-      arrayResult = get_values_from_array(value, type)
-      result.concat(arrayResult)
+      array_result = get_values_from_array(value, type)
+      result.concat(array_result)
     end
 
     result.push(value) if (value.is_a? type)

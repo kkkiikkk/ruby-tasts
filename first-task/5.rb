@@ -1,8 +1,8 @@
 def camel(str)
-  whiteSpaceIndex = str.index(/\s/)
-  if whiteSpaceIndex != nil
-    str[whiteSpaceIndex + 1] = str[whiteSpaceIndex + 1].upcase
-    str.slice!(whiteSpaceIndex)
+  white_space_index = str.index(/\s/)
+  if white_space_index != nil
+    str[white_space_index + 1] = str[white_space_index + 1].upcase
+    str.slice!(white_space_index)
     camel(str)
   else
     str[0] = str[0].upcase
@@ -11,23 +11,23 @@ def camel(str)
 end
 
 def underscore(str)
-  whiteSpaceIndex = str.index(/\s/)
-  returnstr.downcase! if whiteSpaceIndex != nil
-  if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
-    str[whiteSpaceIndex] = "_"
+  white_space_index = str.index(/\s/)
+  returnstr.downcase! if white_space_index != nil
+  if (str[white_space_index + 1] != str[white_space_index] && white_space_index != 0)
+    str[white_space_index] = "_"
   else
-    str.slice!(whiteSpaceIndex)
+    str.slice!(white_space_index)
   end
     underscore(str)
 end
 
 def css(str)
-  whiteSpaceIndex = str.index(/\s/)
-  return str.downcase! if whiteSpaceIndex != nil
-  if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
-    str[whiteSpaceIndex] = "-"
+  white_space_index = str.index(/\s/)
+  return str.downcase! if white_space_index != nil
+  if (str[white_space_index + 1] != str[white_space_index] && white_space_index != 0)
+    str[white_space_index] = "-"
   else
-    str.slice!(whiteSpaceIndex)
+    str.slice!(white_space_index)
   end
   css(str)
 end
