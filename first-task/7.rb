@@ -68,10 +68,10 @@ class StringConvertor
   private
 
   def camel(str)
-    whiteSpaceIndex = str.index(/\s/)
-    if whiteSpaceIndex != nil
-      str[whiteSpaceIndex + 1] = str[whiteSpaceIndex + 1].upcase
-      str.slice!(whiteSpaceIndex)
+    white_space_index = str.index(/\s/)
+    if white_space_index != nil
+      str[white_space_index + 1] = str[white_space_index + 1].upcase
+      str.slice!(white_space_index)
       camel(str)
     else
       str[0] = str[0].upcase
@@ -80,31 +80,31 @@ class StringConvertor
   end
 
   def underscore(str)
-    whiteSpaceIndex = str.index(/\s/)
-    returnstr.downcase! if whiteSpaceIndex != nil
-    if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
-      str[whiteSpaceIndex] = "_"
+    white_space_index = str.index(/\s/)
+    returnstr.downcase! if white_space_index != nil
+    if (str[white_space_index + 1] != str[white_space_index] && white_space_index != 0)
+      str[white_space_index] = "_"
     else
-      str.slice!(whiteSpaceIndex)
+      str.slice!(white_space_index)
     end
     underscore(str)
   end
 
   def css(str)
-    whiteSpaceIndex = str.index(/\s/)
-    return str.downcase! if whiteSpaceIndex != nil
-    if (str[whiteSpaceIndex + 1] != str[whiteSpaceIndex] && whiteSpaceIndex != 0)
-      str[whiteSpaceIndex] = "-"
+    white_space_index = str.index(/\s/)
+    return str.downcase! if white_space_index != nil
+    if (str[white_space_index + 1] != str[white_space_index] && white_space_index != 0)
+      str[white_space_index] = "-"
     else
-      str.slice!(whiteSpaceIndex)
+      str.slice!(white_space_index)
     end
     css(str)
   end
 end
 
 class ArrayValueExtractor 
-  def self.get_values_from_array(incomingValue, type, result = [])
-    incomingValue.each do |value|
+  def self.get_values_from_array(incoming_value, type, result = [])
+    incoming_value.each do |value|
       get_values_from_array(value, type, result) if (value.is_a? Array)
      result.push(value) if (value.is_a? type)
     end
@@ -115,8 +115,8 @@ class ArrayValueExtractor
     result = []
     arr.each do |value|
       if (value.is_a? Array) 
-        arrayResult = get_values_from_array(value, type)
-        result.concat(arrayResult)
+        array_result = get_values_from_array(value, type)
+        result.concat(array_result)
       end
 
       result.push(value) if (value.is_a? type)

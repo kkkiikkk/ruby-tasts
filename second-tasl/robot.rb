@@ -2,10 +2,10 @@ class Robot
   DIRECTIONS=["SOUTH", "EAST", "NORTH", "WEST"]
 
   attr_accessor :x_pos, :y_pos, :current_direction_number
-  def initialize()
-    @current_direction_number = 3
-    @x_pos = 0
-    @y_pos = 0
+  def initialize(x_pos, y_pos, direction)
+    @current_direction_number = DIRECTIONS.find_index(direction)
+    @x_pos = x_pos
+    @y_pos = y_pos
   end
 
   def move
@@ -66,9 +66,58 @@ class App
 
     puts "The grid was generated"
 
-    start_place_input = gets.chomp.to_s
-    space_index = start_place_input.index(/\s/)
-    if (space)
+
+    robot_start_properties = []
+    loop do
+      start_place_input = gets.chomp.to_s
+      if(start_place_input.start_with?('PLACE')) 
+        robot_start_properties_string =  start_place_input.slice(6..start_place_input.size)
+        robot_start_properties = robot_start_properties_string && robot_start_properties_string.to_s.size > 4 ? robot_start_properties_string.split(",") : robot_start_properties_string
+      
+        if (!Robot::DIRECTIONS.include?(robot_start_properties[0])) 
+          puts "The first argument of PLACE should be a direction"
+          next
+        end
+
+        if (!robot_start_properties[1] || !robot_start_properties[2]) 
+          puts "The 2nd and 3rd arguments should be a number that represent coordinates on the grid"
+          next
+        end
+
+        if(robot_start_properties[1].to_i < 0 || robot_start_properties[1].to_i > @width || robot_start_properties[2].to_i < 0 || robot_start_properties[2].to_i > @height) 
+          puts "You are outside the grid"
+          next
+        end
+        break
+      end
+    end
+    
+    robot = Robot.new(robot_start_properties[1].to_i, robot_start_properties[2].to_i, robot_start_properties[0])
+  
+    puts "Robot has been placed"
+
+    loop do
+      action = gets.chomp.to_s
+    
+      case action
+      when "RIGHT"
+        robot.turn(1)
+      when "LEFT"
+        robot.turn(-1)
+      when "MOVE"
+        curr_x_pos = robot.x_pos
+        curr_y_pos = robot.y_pos
+
+        robot.move
+        if (robot.x_pos < 0 || robot.x_pos > @width || robot.y_pos < 0 || robot.y_pos > @height)
+          robot.x_pos = curr_x_pos
+          robot.y_pos = curr_y_pos
+          next
+        end
+      when "REPORT"
+        puts "#{robot}"
+      end
+    end
   end
 
   private
@@ -80,23 +129,6 @@ class App
     end
   end
 end
-
-# robot = Robot.new
-# t
-# robot.move
-
-# robot.turn(1)
-# robot.move
-# robot.move
-
-# robot.turn(1)
-# robot.move
-# robot.turn(1)
-# robot.move
-# robot.turn(1)
-# robot.move
-
-# p robot.to_s
 
 app = App.new
 
