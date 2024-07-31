@@ -9,7 +9,6 @@ class Robot
   end
 
   def move
-    puts @current_direction_number
     case @current_direction_number
     when 0
       @y_pos += 1
