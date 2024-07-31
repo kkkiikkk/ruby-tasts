@@ -1,5 +1,5 @@
 class Robot 
-  DIRECTIONS=["SOUTH", "EAST", "NORTH", "WEST"]
+  DIRECTIONS=["NORTH", "EAST", "SOUTH", "WEST"]
 
   attr_accessor :x_pos, :y_pos, :current_direction_number
   def initialize(x_pos, y_pos, direction)
@@ -9,15 +9,16 @@ class Robot
   end
 
   def move
+    puts @current_direction_number
     case @current_direction_number
-    when 1
+    when 0
       @y_pos += 1
-    when 3
-      @y_pos -= 1
     when 2
-      @x_pos -= 1
-    when 0 
+      @y_pos -= 1
+    when 1
       @x_pos += 1
+    when 3 
+      @x_pos -= 1
     end
   end
 
