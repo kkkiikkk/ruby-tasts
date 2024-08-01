@@ -129,19 +129,12 @@ class ArrayValueExtractor
 end
 
 class App
-  def self.run
-    puts 'Welcome to multy tasksing app'
-    puts 'Choose app that you want to run'
-    puts '1. App that will print ruby in console'
-    puts '2. App that draw circle in console by the provided radius'
-    puts '3. App that will print matrix and highlight main diagonal'
-    puts '4. App that will find in the current hash value by key'
-    puts '5. App that will convert string into the another string by case'
-    puts '6. App that will extract values from array by the type'
-    puts 'Enter your choice: '
-    choice = gets.chomp.to_i
+  attr_reader @choice
 
-    case choice
+  def run
+    display_menu
+
+    case @choice
     when 1
       RubyLogger.log
     when 2
@@ -162,6 +155,24 @@ class App
     else
       puts "You've made wrong choice try again!"
     end
+  end
+
+  private
+
+  def display_menu
+    puts 'Welcome to multy tasksing app'
+    puts 'Choose app that you want to run'
+    puts '1. App that will print ruby in console'
+    puts '2. App that draw circle in console by the provided radius'
+    puts '3. App that will print matrix and highlight main diagonal'
+    puts '4. App that will find in the current hash value by key'
+    puts '5. App that will convert string into the another string by case'
+    puts '6. App that will extract values from array by the type'
+  end
+
+  def prompt_choice
+    puts 'Enter your choice: '
+    @choice = gets.chomp.to_i
   end
 end
 

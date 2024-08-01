@@ -39,7 +39,7 @@ class Robot
 end
 
 class App
-  attr_writer :grid, :width, :height
+  attr_writer :grid, :width, :height, :robot
 
   def initialize
     @width = 5
@@ -50,23 +50,44 @@ class App
   def run
     puts 'Welcome to robot movement simulation'
 
-    puts 'Do you want to enter size of your grid ?'
-    puts 'Input Y/press any other button to continue(program will generate grid 5x6 for you)'
-
-    is_grid_generated = gets.chomp
-
-    if is_grid_generated == 'Y'
-      puts 'Enter width of your grid: '
-      @width = gets.chomp.to_i
-
-      puts 'Enter heigth of your grid: '
-      @height = gets.chomp.to_i
-    end
+    prompt_grid_generating
 
     generate_grid
 
     puts 'The grid was generated'
 
+    robot_start_properties = prompt_initial_place
+    @robot = Robot.new(robot_start_properties[1].to_i, robot_start_properties[2].to_i, robot_start_properties[0])
+
+    puts 'Robot has been placed'
+    handle_user_input
+  end
+
+  private
+
+  def generate_grid
+    (0...@width).each do |i|
+      @grid[i] = []
+      @grid[i].fill(0, 0...@height)
+    end
+  end
+
+  def prompt_grid_generating
+    puts 'Do you want to enter size of your grid ?'
+    puts 'Input Y/press any other button to continue(program will generate grid 5x6 for you)'
+
+    is_grid_generated = gets.chomp
+
+    return unless is_grid_generated == 'Y'
+
+    puts 'Enter width of your grid: '
+    @width = gets.chomp.to_i
+
+    puts 'Enter heigth of your grid: '
+    @height = gets.chomp.to_i
+  end
+
+  def prompt_initial_place
     robot_start_properties = []
     loop do
       start_place_input = gets.chomp.to_s
@@ -98,41 +119,31 @@ class App
       end
       break
     end
+    robot_start_properties
+  end
 
-    robot = Robot.new(robot_start_properties[1].to_i, robot_start_properties[2].to_i, robot_start_properties[0])
-
-    puts 'Robot has been placed'
-
+  def handle_user_input
     loop do
       action = gets.chomp.to_s
 
       case action
       when 'RIGHT'
-        robot.turn(1)
+        @robot.turn(1)
       when 'LEFT'
-        robot.turn(-1)
+        @robot.turn(-1)
       when 'MOVE'
-        curr_x_pos = robot.x_pos
-        curr_y_pos = robot.y_pos
+        curr_x_pos = @robot.x_pos
+        curr_y_pos = @robot.y_pos
 
-        robot.move
-        if robot.x_pos.negative? || robot.x_pos > @width || robot.y_pos.negative? || robot.y_pos > @height
-          robot.x_pos = curr_x_pos
-          robot.y_pos = curr_y_pos
+        @robot.move
+        if @robot.x_pos.negative? || @robot.x_pos > @width || @robot.y_pos.negative? || @robot.y_pos > @height
+          @robot.x_pos = curr_x_pos
+          @robot.y_pos = curr_y_pos
           next
         end
       when 'REPORT'
-        puts robot
+        puts @robot
       end
-    end
-  end
-
-  private
-
-  def generate_grid
-    (0...@width).each do |i|
-      @grid[i] = []
-      @grid[i].fill(0, 0...@height)
     end
   end
 end

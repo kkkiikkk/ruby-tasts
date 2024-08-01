@@ -38,10 +38,14 @@ def display_stats(stats)
   end
 end
 
-def main
-  games = []
+def display_welcome_text
   puts 'Welcome to soccer league app'
   puts 'Enter ur games, format of the input game - Team points, Team points'
+end
+
+def main
+  display_welcome_text
+  games = []
   puts 'Enter end when you will finish'
   loop do
     game = gets.chomp.to_s
